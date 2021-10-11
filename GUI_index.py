@@ -1,13 +1,13 @@
-import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog as fd
-from tkinter.messagebox import showinfo
 from webscrap_index import scrapping
+from webscrap_index import save_result
 
 # create the root window
 root = Tk()
 root.title('Web scraping')
+root.iconbitmap(r'.\imagenes\pc.ico')
 root.geometry('300x150')
 root.config(bg='black')
 
@@ -23,8 +23,12 @@ filetypes = (
     ('Excel Workbook', '*.xlsx'),
     ('All files', '*.*')
 )
-
 path_open_file = list()
+
+
+def clear_display():
+    if len(display.get()):
+        display.delete(0, END)
 
 
 def select_file():
@@ -32,21 +36,20 @@ def select_file():
         title='Open a file',
         initialdir='/',
         filetypes=filetypes)
-    print(type(filename))
+    clear_display()
     display.insert(0, filename)
     path_open_file.insert(0, filename)
 
 
 def save_file():
     save = fd.asksaveasfile(
-        title='Open a file',
+        title='Save file',
         initialdir='/',
+        defaultextension='.xlsx',
         filetypes=filetypes)
 
-    showinfo(
-        title='Selected File',
-        message=save
-    )
+    # funcion para crear el archivo
+    save_result(save.name)
 
 
 def run():

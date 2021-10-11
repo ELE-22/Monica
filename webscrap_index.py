@@ -8,12 +8,10 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import transformdates
 
-
-
-
 #get data from the for loop
 modelo_for= list()
 warranty_for =list()
+df =list()
 
 def scrapping(path):
     # Webdriver exe
@@ -27,7 +25,6 @@ def scrapping(path):
     #get data
     TAGS_LIST = get_Tags(path)
 
-    print(TAGS_LIST,'lista')
     for tag in TAGS_LIST:
         try:
             # Seacrh tag box
@@ -58,21 +55,17 @@ def scrapping(path):
         except:
             print("Un error al guardar las etiquetas")
 
-
     driver.quit()
     time.sleep(3)
     warranty_date = transformdates.get_Date(warranty_for)
 
-
-    df = pd.DataFrame({'TAGS': TAGS_LIST,'MODEL': modelo_for, 'Warranty': warranty_date,  })
-
-    print(df)
-
-
-
+    df.insert(0, pd.DataFrame({'TAGS': TAGS_LIST,'MODEL': modelo_for, 'Warranty': warranty_date,  }))
+    print(df[0])
 
 def save_result(path):
-    df.to_excel(path, index=False)
+    print('path: {} ,\ndf:{}'.format(path, df[0]))
+    df[0].to_excel(path, index=False)
     print(' \nEl file se guardo en la siguinete ruta: '+path)
+
 
 
