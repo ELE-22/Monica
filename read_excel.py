@@ -6,8 +6,7 @@ data = list()
 def get_Tags(path):
     global i
     # get data
-    ruta = path+'.xlsx'
-    df = pd.read_excel(ruta, header=None)
+    df = pd.read_excel(path, header=None)
     for tag in df.values:
         if type(tag[0]) == str:
             #print(type(tag[0]))
