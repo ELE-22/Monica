@@ -57,9 +57,9 @@ def scrapping(path):
 
     driver.quit()
     time.sleep(3)
-    warranty_date = transformdates.get_Date(warranty_for)
+    warranty_date = transformdates.get_date(warranty_for)
 
-    df.insert(0, pd.DataFrame({'TAGS': TAGS_LIST,'MODEL': modelo_for, 'Warranty': warranty_date,  }))
+    df.insert(0, pd.DataFrame({'TAGS': TAGS_LIST,'MODEL': modelo_for, 'Warranty': warranty_date[0], 'Delta T': warranty_date[1]  }))
     print(df[0])
 
 def save_result(path):
